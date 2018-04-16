@@ -21,11 +21,11 @@ public class Jeu extends Thread{
 		while(!partie.isPartieFinie())
 		{
 			console.lancementTour(partie.getTour(), partie.getJoueurCourant(), partie.getGrille());
-			
 			long tempsReflexion=System.currentTimeMillis();
 			int coup= partie.getJoueurCourant().joue(partie.getGrille(), console, partie.getTour());
 			tempsReflexion=System.currentTimeMillis()-tempsReflexion;
 			console.afficherCoup(partie.getJoueurCourant(), coup, tempsReflexion);
+			
 			if(!partie.jouerCoup(coup, tempsReflexion))
 			{
 				System.out.println("COUP INVALIDE : Recommencez !");
