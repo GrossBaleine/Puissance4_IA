@@ -4,6 +4,8 @@ package fr.uha.ensisa.puissance4.data;
 import fr.uha.ensisa.puissance4.util.Constantes;
 import fr.uha.ensisa.puissance4.util.Constantes.Case;
 
+import java.util.stream.IntStream;
+
 public class Grille {
 	
 	private Case[][] grille;
@@ -24,7 +26,8 @@ public class Grille {
 	 */
 	private Grille(Grille original)
 	{
-		//À compléter
+		// TODO ?
+	    this.grille = original.grille;
 	}
 	
 	/**
@@ -173,7 +176,7 @@ public class Grille {
 	 */
 	public double evaluer(Case symboleJoueurCourant)
 	{
-		//À compléter
+		//TODO: À compléter
 		return 0; 
 	}
 	
@@ -182,8 +185,11 @@ public class Grille {
 	 */
 	public Grille clone()
 	{
-		Grille copy = new Grille(this);
-		return copy;
+		return new Grille(this);
+	}
+
+	public boolean isFinished() {
+		return IntStream.range(0, Constantes.NB_COLONNES).noneMatch(this::isCoupPossible);
 	}
 
 }

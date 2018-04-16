@@ -51,6 +51,4 @@ public abstract class Algorithm {
 	 */
 	public abstract int choisirCoup();
 	
-	
-
 }
