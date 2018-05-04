@@ -24,7 +24,11 @@ public class Grille {
 	 * @param original
 	 */
 	private Grille(Grille original) {
-		this.grille = original.grille;
+		grille = new Case[Constantes.NB_COLONNES][Constantes.NB_LIGNES];
+		for (int i = 0; i < Constantes.NB_COLONNES; i++)
+			for (int j = 0; j < Constantes.NB_LIGNES; j++) {
+				grille[i][j] = original.getCase(j, i);
+			}
 	}
 
 	/**
