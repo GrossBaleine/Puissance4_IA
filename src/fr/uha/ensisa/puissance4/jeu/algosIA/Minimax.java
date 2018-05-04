@@ -14,8 +14,8 @@ public class Minimax extends Algorithm {
 	public int choisirCoup() {
 	    // levelIA = profondeur de l'arbre
 		// Objectif : 5-6 en 2-3 secondes
-		var depth = levelIA;
-		var minimax = maxValue(grilleDepart, depth);
+		int depth = levelIA;
+		double[] minimax = maxValue(grilleDepart, depth);
 
 	    return (int) minimax[0];
 	}
@@ -27,7 +27,7 @@ public class Minimax extends Algorithm {
 			if (!grille.isCoupPossible(column)) continue;
 
 			Grille newGrille = grille.clone();
-			var nextMove = this.minValue(newGrille, depth - 1);
+			double[] nextMove = this.minValue(newGrille, depth - 1);
 			max[1] = newGrille.evaluer(symboleMax);
 
 			if (nextMove[1] > max[1]) {
@@ -47,7 +47,7 @@ public class Minimax extends Algorithm {
 			if (!grille.isCoupPossible(column)) continue;
 
 			Grille newGrille = grille.clone();
-			var nextMove = this.maxValue(newGrille, depth - 1);
+			double[] nextMove = this.maxValue(newGrille, depth - 1);
 			min[1] = newGrille.evaluer(symboleMin);
 
 			if (nextMove[1] > min[1]) {

@@ -1,6 +1,7 @@
 package fr.uha.ensisa.puissance4.data;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import fr.uha.ensisa.puissance4.util.Constantes;
 import fr.uha.ensisa.puissance4.util.Constantes.Case;
@@ -319,6 +320,10 @@ public class Grille {
 		}
 
 		return valeur_Alignement;
+	}
+	
+	public boolean isFinished() {
+		return IntStream.range(0, Constantes.NB_COLONNES).noneMatch(this::isCoupPossible);
 	}
 
 }
