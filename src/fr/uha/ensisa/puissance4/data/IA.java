@@ -23,8 +23,7 @@ public class IA extends Joueur {
 		return Constantes.JOUEUR_IA;
 	}
 	
-	public int getAlgoIA()
-	{
+	public int getAlgoIA() {
 		return algoIA;
 	}
 
@@ -47,8 +46,5 @@ public class IA extends Joueur {
 		}
 		return iA.choisirCoup();
 	}
-
-	
-
 
 }

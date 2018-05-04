@@ -9,8 +9,7 @@ public abstract class Puissance4 {
 
 		int mode = Constantes.MODE_CONSOLE;
 		//Indique la bonne interface et la lance dans un thread différent
-		switch(mode)
-		{
+		switch(mode) {
 		default :
 			Console console = new Console();
 			console.start();
