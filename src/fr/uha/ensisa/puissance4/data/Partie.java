@@ -122,8 +122,6 @@ public class Partie {
 	 */
 	private void verificationFinPartie()
 	{		
-		System.out.println("Valeur de grille pour "+this.getJoueurCourant().getSymbole()+" : "+this.getGrille().evaluer(this.getJoueurCourant().getSymbole()));
-		
 		etatPartie=grille.getEtatPartie(joueurCourant.getSymbole(), tour);		
 	}
 	

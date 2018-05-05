@@ -310,7 +310,10 @@ public class Grille {
 				NBtokenAlignes++;
 			} else {
 				if (cellules_disponibles + NBtokenAlignes >= 4)
-					valeur_Alignement += cellules_disponibles + Math.pow(NBtokenAlignes, 2);
+					if (cellules_disponibles < 4)
+						valeur_Alignement += cellules_disponibles + Math.pow(NBtokenAlignes, 2);
+					else
+						valeur_Alignement += 3 + Math.pow(NBtokenAlignes, 2);
 				NBtokenAlignes = 0;
 				cellules_disponibles = 0;
 				NBtokenAdj = 0;
