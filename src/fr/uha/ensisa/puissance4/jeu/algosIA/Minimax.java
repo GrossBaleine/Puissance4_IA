@@ -29,8 +29,11 @@ public class Minimax extends Algorithm {
 	 */
 	private double[] maxValue(Grille grille, int depth) {
 	    double[] max = {Constantes.COUP_NON_DEFINI, Integer.MIN_VALUE};
-	    if (grille.isFinished() || depth <= 0 ||grille.getEtatPartie(symboleMax, depth) == Constantes.VICTOIRE_JOUEUR_1){ 
-	    	max[1] = grille.evaluer(symboleMax)-grille.evaluer(symboleMin);
+	    int etatPartie = grille.getEtatPartie(symboleMin, depth);
+		if (grille.isFinished() || depth <= 0
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_1
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_2){ 	
+			max[1] = grille.evaluer(symboleMax)-grille.evaluer(symboleMin);
 			return max;
 		}
 		for (int column = 0; column < Constantes.NB_COLONNES; column++) {
@@ -58,7 +61,10 @@ public class Minimax extends Algorithm {
 	
 	private double[] minValue(Grille grille, int depth) {
 		double[] min = {Constantes.COUP_NON_DEFINI, Integer.MAX_VALUE};
-		if (grille.isFinished() || depth <= 0 || grille.getEtatPartie(symboleMin, depth) == Constantes.VICTOIRE_JOUEUR_1){ 
+		int etatPartie = grille.getEtatPartie(symboleMin, depth);
+		if (grille.isFinished() || depth <= 0
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_1
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_2){
 			min[1] = grille.evaluer(symboleMax)-grille.evaluer(symboleMin);
 			return min;
 		}

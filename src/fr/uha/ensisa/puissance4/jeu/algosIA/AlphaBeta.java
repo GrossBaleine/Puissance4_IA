@@ -14,42 +14,68 @@ public class AlphaBeta extends Algorithm {
 	@Override
 	public int choisirCoup() {
 		int depth = levelIA;
-		double[] alphabeta = maxValue(grilleDepart, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
-
-		return (int) alphabeta[0];
+		double bestValue = Integer.MIN_VALUE;
+		int bestColumn = Constantes.COUP_NON_DEFINI;
+		for (int column = 0; column < Constantes.NB_COLONNES; column++) {
+			if (!grilleDepart.isCoupPossible(column))
+				continue;
+			Grille newGrille = grilleDepart.clone();
+			newGrille.ajouterCoup(column, symboleMax);
+			double alphabeta = minValue(newGrille, Integer.MIN_VALUE, Integer.MAX_VALUE, depth-1);
+			System.out.println("Colonne : "+column + "/Value :"+ alphabeta);
+			if(alphabeta>bestValue){
+				bestValue = alphabeta;
+				bestColumn = column;
+			}
+		}
+		return bestColumn;
 	}
-
-	private double[] maxValue(Grille grille, double alpha, double beta, int depth) {
-		double alpha1 = alpha;
-		double beta1 = beta;
-		double[] max = { Constantes.COUP_NON_DEFINI, Integer.MIN_VALUE };
+	/**
+	 * Renvois la valeur de grille la plus forte parmis celles explorées
+	 * @param grille
+	 * @param alpha
+	 * @param beta
+	 * @param depth
+	 * @return
+	 */
+	private double maxValue(Grille grille, double alpha, double beta, int depth) {
+		double max = Integer.MIN_VALUE;
+		int etatPartie = grille.getEtatPartie(symboleMin, depth);
 		if (grille.isFinished() || depth <= 0
-				|| grille.getEtatPartie(symboleMax, depth) == Constantes.VICTOIRE_JOUEUR_1) {
-			max[1] = grille.evaluer(symboleMax) - grille.evaluer(symboleMin);
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_1
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_2){
+			max = grille.evaluer(symboleMax) - grille.evaluer(symboleMin);
 			return max;
 		}
 		for (int column = 0; column < Constantes.NB_COLONNES; column++) {
 			if (!grille.isCoupPossible(column))
 				continue;
 			Grille newGrille = grille.clone();
-			newGrille.ajouterCoup(column, symboleMin);
-			max[1] = Double.max(max[1], minValue(newGrille, alpha1, beta1, depth - 1)[1]);
-			if(max[1]>=beta){
-				max[0]=column;
+			newGrille.ajouterCoup(column, symboleMax);
+			max = Double.max(max, minValue(newGrille, alpha, beta, depth - 1));
+			if(max>=beta){
 				return max;
 			}
-			alpha1 = Double.max(alpha1, max[1]);
+			alpha = Double.max(alpha, max);
 		}
 		return max;
 	}
-
-	private double[] minValue(Grille grille, double alpha, double beta, int depth) {
-		double alpha1 = alpha;
-		double beta1 = beta;
-		double[] min = { Constantes.COUP_NON_DEFINI, Integer.MAX_VALUE };
+	/**
+	 * Renvois la valeur de grille la plus faible parmis celles explorées
+	 * @param grille
+	 * @param alpha
+	 * @param beta
+	 * @param depth
+	 * @return
+	 */
+	private double minValue(Grille grille, double alpha, double beta, int depth) {
+		
+		double min = Integer.MAX_VALUE ;
+		int etatPartie = grille.getEtatPartie(symboleMin, depth);
 		if (grille.isFinished() || depth <= 0
-				|| grille.getEtatPartie(symboleMin, depth) == Constantes.VICTOIRE_JOUEUR_1) {
-			min[1] = grille.evaluer(symboleMax) - grille.evaluer(symboleMin);
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_1
+				|| etatPartie == Constantes.VICTOIRE_JOUEUR_2){
+			min = grille.evaluer(symboleMax) - grille.evaluer(symboleMin);
 			return min;
 		}
 		for (int column = 0; column < Constantes.NB_COLONNES; column++) {
@@ -57,12 +83,11 @@ public class AlphaBeta extends Algorithm {
 				continue;
 			Grille newGrille = grille.clone();
 			newGrille.ajouterCoup(column, symboleMin);
-			min[1] = Double.min(min[1], maxValue(newGrille, alpha1, beta1, depth - 1)[1]);
-			if(min[1]<=alpha){
-				min[0]=column;
+			min = Double.min(min, maxValue(newGrille, alpha, beta, depth - 1));
+			if(min<=alpha){
 				return min;
 			}
-			beta1 = Double.min(beta1, min[1]);
+			beta = Double.min(beta, min);
 		}
 		return min;
 	}
