@@ -38,6 +38,28 @@ public class Minimax extends Algorithm {
 		}
 		for (int column = 0; column < Constantes.NB_COLONNES; column++) {
 			if (!grille.isCoupPossible(column)) continue;
+			//__________________TEST____________________
+			/*Runnable task = new MyRunnable(column) {
+				
+				@Override
+				public void run(){
+					//System.out.println("lancement d'un thread");
+					Grille newGrille = grille.clone();
+					newGrille.ajouterCoup(this.colum, symboleMax);
+					
+					double[] nextMove = minValue(newGrille, depth - 1);
+					if (nextMove[1] >= max[1]) {
+						max[1] = nextMove[1];
+						max[0] = this.colum;
+						System.out.println(depth);
+					}
+				}
+			};
+			
+			Thread thread = new Thread(task);
+			thread.start();*/
+			//__________________TEST____________________
+			
 			Grille newGrille = grille.clone();
 			newGrille.ajouterCoup(column, symboleMax);
 			
@@ -46,6 +68,7 @@ public class Minimax extends Algorithm {
 				max[1] = nextMove[1];
 				max[0] = column;
 			}
+			
 		}
 		return max;
 	}
@@ -69,7 +92,29 @@ public class Minimax extends Algorithm {
 			return min;
 		}
 		for (int column = 0; column < Constantes.NB_COLONNES; column++) {
-			if (!grille.isCoupPossible(column)) continue;	
+			if (!grille.isCoupPossible(column)) continue;
+			
+			//__________________TEST____________________
+			/*Runnable task = new MyRunnable(column) {
+				
+				@Override
+				public void run(){
+					//System.out.println("lancement d'un thread");
+					Grille newGrille = grille.clone();
+					newGrille.ajouterCoup(colum, symboleMin);
+					
+					double[] nextMove = minValue(newGrille, depth - 1);
+					if (nextMove[1] <= min[1]) {
+						min[1] = nextMove[1];
+						min[0] = colum;
+						System.out.println(depth);
+					}
+				}
+			};
+			
+			Thread thread = new Thread(task);
+			thread.start();*/
+			//__________________TEST____________________
 			Grille newGrille = grille.clone();
 			newGrille.ajouterCoup(column, symboleMin);
 			
@@ -82,4 +127,15 @@ public class Minimax extends Algorithm {
 		return min;
 	}
 
+	public class MyRunnable implements Runnable {
+		protected int colum;
+		   public MyRunnable(int column) {
+			   this.colum = column;
+		   }
+
+		   public void run() {
+		   }
+		}
 }
+
+

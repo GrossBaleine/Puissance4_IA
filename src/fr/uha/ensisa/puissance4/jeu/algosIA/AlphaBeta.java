@@ -22,7 +22,7 @@ public class AlphaBeta extends Algorithm {
 			Grille newGrille = grilleDepart.clone();
 			newGrille.ajouterCoup(column, symboleMax);
 			double alphabeta = minValue(newGrille, Integer.MIN_VALUE, Integer.MAX_VALUE, depth-1);
-			System.out.println("Colonne : "+column + "/Value :"+ alphabeta);
+			//System.out.println("Colonne : "+column + "/Value :"+ alphabeta);
 			if(alphabeta>bestValue){
 				bestValue = alphabeta;
 				bestColumn = column;
